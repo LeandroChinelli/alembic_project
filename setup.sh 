@@ -1,0 +1,7 @@
+#!/bin/bash
+python3 -m venv venv
+source venv/bin/activate
+
+python -m pip install psycopg2-binary==2.9.3 asyncpg==0.25.0 SQLAlchemy~=2.0
+
+docker run --name postgresql -e POSTGRES_PASSWORD=testpassword -e POSTGRES_USER=testuser -e POSTGRES_DB=testuser -p 5432:5432 -d postgres:13.4-alpine
