@@ -10,3 +10,5 @@ url = URL.create(
 )
 
 engine = create_engine(url, echo=True)
+
+print('engine created successfully')
