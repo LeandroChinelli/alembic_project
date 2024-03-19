@@ -1,4 +1,5 @@
-from sqlalchemy import create_engine, URL
+from sqlalchemy import create_engine, URL, text
+from sqlalchemy.orm import sessionmaker
 
 url = URL.create(
     drivername="postgresql+psycopg2",  # driver name = postgresql + the library we are using (psycopg2)
@@ -11,4 +12,4 @@ url = URL.create(
 
 engine = create_engine(url, echo=True)
 
-print('engine created successfully')
+session_pool = sessionmaker(engine)
