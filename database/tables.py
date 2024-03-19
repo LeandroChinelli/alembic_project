@@ -6,7 +6,7 @@ from sqlalchemy.dialects.postgresql import TIMESTAMP
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 from sqlalchemy.sql.functions import func
 import datetime
-from connection import engine
+from .connection import engine
 
 
 # Creating a base class
@@ -62,4 +62,5 @@ class OrderProduct(Base, TableNameMixin):
     quantity: Mapped[int]
 
 
-Base.metadata.create_all(engine)
+# Base.metadata.create_all(engine)
+# Base.metadata.drop_all(engine)
