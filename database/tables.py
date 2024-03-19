@@ -6,7 +6,7 @@ from sqlalchemy.dialects.postgresql import TIMESTAMP
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 from sqlalchemy.sql.functions import func
 import datetime
-from e
+from connection import engine
 
 
 # Creating a base class
@@ -36,7 +36,7 @@ class TableNameMixin:
         return cls.__name__.lower() + "s"
     
 
-class Users(Base, TimestampMixin, TableNameMixin):
+class User(Base, TimestampMixin, TableNameMixin):
     telegram_id: Mapped[int] = mapped_column(BIGINT, primary_key=True, autoincrement=False)
     full_name: Mapped[str_255]
     username: Mapped[Optional[str_255]]
@@ -44,19 +44,22 @@ class Users(Base, TimestampMixin, TableNameMixin):
     referrer_id: Mapped[Optional[user_fk]]
     
 
-class Orders(Base, TimestampMixin, TableNameMixin):
+class Order(Base, TimestampMixin, TableNameMixin):
     order_id: Mapped[int_pk]
     user_id: Mapped[user_fk]
 
 
-class Products(Base, TimestampMixin, TableNameMixin):
+class Product(Base, TimestampMixin, TableNameMixin):
     product_id: Mapped[int_pk]
     title: Mapped[str_255]
     description: Mapped[str]
 
 
-class OrderProducts(Base, TableNameMixin):
+class OrderProduct(Base, TableNameMixin):
 
     order_id: Mapped[int] = mapped_column(INTEGER, ForeignKey("orders.order_id", ondelete="CASCADE"), primary_key=True)
     product_id: Mapped[int] = mapped_column(INTEGER, ForeignKey("products.product_id", ondelete="RESTRICT"), primary_key=True)
     quantity: Mapped[int]
+
+
+Base.metadata.create_all(engine)
